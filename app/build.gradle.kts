@@ -19,61 +19,14 @@ android {
     consumerProguardFiles("consumer-rules.pro")
   }
 
-
   compileOptions {
     sourceCompatibility = ProjectVersions.JAVA_VERSION
     targetCompatibility = ProjectVersions.JAVA_VERSION
   }
 
-  dataBinding {
-    isEnabled = false
-  }
-
-  androidExtensions {
-    isExperimental = true
-  }
-
-  tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-      jvmTarget = "1.8"
-      //freeCompilerArgs = listOf("-Xjsr305=strict")
-      freeCompilerArgs = listOf("-Xuse-experimental=kotlin.Experimental")
-    }
-  }
-
-
 }
 
-/*
-configurations.all {
-  resolutionStrategy.force "com.squareup.okhttp3:okhttp:$okhttp_version"
-}
 
-project.afterEvaluate {
-  android.applicationVariants.all { variant ->
-    task "installRun${variant.name.capitalize()}"(type: Exec, dependsOn: "install${variant.name.capitalize()}", group: "run") {
-      commandLine = ["adb", "shell", "monkey", "-p", variant.applicationId + " 1"]
-      doLast {
-        println "Launching ${variant.applicationId}"
-      }
-    }
-  }
-}
-*/
-
-project.afterEvaluate {
-  android.applicationVariants.forEach { variant ->
-    tasks.register("installRun${variant.name.capitalize()}", Exec::class) {
-      setDependsOn(listOf("install${variant.name.capitalize()}"))
-      group = "run"
-      setCommandLine("adb", "shell", "monkey", "-p", variant.applicationId + " 1")
-      doLast {
-        println("Launching ${variant.applicationId}")
-      }
-
-    }
-  }
-}
 
 dependencies {
 
@@ -88,21 +41,14 @@ dependencies {
   implementation(Libs.lifecycle_livedata_ktx)
   implementation(Libs.core_ktx)
 
-  //sliding panel library
-  implementation(Libs.library)
 
-
-  //implementation(Libs.slf4j_android)
   implementation(Libs.slf4j_api)
   implementation(Libs.slf4j)
   testImplementation(Libs.logback_classic)
   testImplementation(Libs.logback_core)
 
-  implementation(Libs.navigation_fragment_ktx)
-  implementation(Libs.navigation_ui_ktx)
   implementation(Libs.constraintlayout)
   implementation(Libs.preference_ktx)
-  implementation(Libs.androidx_media_media)
   implementation(Libs.material)
 
 

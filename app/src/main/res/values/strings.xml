@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">VTM Map Demo</string>
     <string name="action_settings">Settings</string>
+    <string name="theme_default">Default</string>
+    <string name="theme_osmarender">Osmarender</string>
+    <string name="theme_osmagray">Osmagray</string>
+    <string name="theme_tubes">Tubes</string>
+    <string name="theme_newtron">NewTron</string>
+    <string name="theme_mapzen">MapZen theme</string>
+    <string name="menu_gridlayer">Grid</string>
+
 </resources>
